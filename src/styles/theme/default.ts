@@ -17,7 +17,4 @@ export const defaultTheme = {
   purpleDark: "#4b2995",
   purple: "#8047f8",
   purpleLight: "#ebe5f9",
-
-  fontTitle: '"Baloo 2",sans-serif',
-  fontText: '"Roboto",sans-serif',
 };
