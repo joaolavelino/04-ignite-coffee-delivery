@@ -9,8 +9,7 @@ function App() {
     <>
       <ThemeProvider theme={defaultTheme}>
         <GlobalStyle />
-        <h1>Hello Coffee Delivery</h1>
-        <input type="text" />
+
         <BrowserRouter>
           <Router />
         </BrowserRouter>

@@ -4,6 +4,7 @@ import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react";
 import { Hero, PropsList } from "./styles";
 import heroImg from "../../../public/assets/banner-image.png";
 import heroBG from "../../../public/assets/banner-bg.png";
+import { Button } from "../../components/button";
 
 const Home = () => {
   const { yellowDark, yellow, purple, baseText } = useTheme();
@@ -16,8 +17,8 @@ const Home = () => {
           <div className="title">
             <h2>Finden Sie den perfekten Kaffee für jeden moment</h2>
             <p>
-              Mit Coffee Delivery bekommen Sie Ihren Kaffe. Irgendwo.
-              Irgendwann.
+              Mit Coffee Delivery bekommen Sie Ihren Kaffe wo Sie sind.
+              Irgendwo. Irgendwann.
             </p>
           </div>
 
@@ -51,6 +52,9 @@ const Home = () => {
           <img src={heroImg} alt="coffee cup with grains on a yellow BG" />
         </div>
       </Hero>
+      <Button variant="secondary">
+        <ShoppingCart weight="fill" /> Remover
+      </Button>
     </div>
   );
 };

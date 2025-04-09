@@ -18,13 +18,20 @@ export const PropsList = styled.div`
 `;
 
 export const Hero = styled.section`
-  width: 100%;
   display: flex;
   align-items: center;
   gap: 56px;
+  width: 100%;
+  padding: 0 10rem;
+  overflow-y: hidden;
+  margin: 5rem 0;
 
   .bg {
     position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: -100;
   }
 
   .left {

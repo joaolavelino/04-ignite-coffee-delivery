@@ -16,6 +16,9 @@ export const GlobalStyle = createGlobalStyle`
         background:${(props) => props.theme.baseBG};
         color:${(props) => props.theme.baseText};
         -webkit-font-smoothing:antialiased;
+        width: 100vw;
+        max-width: 1440px;
+        margin:0 auto;
     }
 
     body,textarea,input,button{
@@ -39,5 +42,15 @@ export const GlobalStyle = createGlobalStyle`
         border:2px solid ${({ theme }) => theme.baseButton};
         outline: 0 0 0 2px ${(props) => props.theme.baseButton};
         background-color: ${({ theme }) => theme.baseInput};
+    }
+
+    a{
+        text-decoration: none;
+        color: ${({ theme }) => theme.baseSubtitle};
+        font-weight: bold;
+        transition: 200ms;
+        &:hover{
+            color: ${({ theme }) => theme.purple};
+        }
     }
 `;
