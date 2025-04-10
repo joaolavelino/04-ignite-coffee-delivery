@@ -1,9 +1,12 @@
-import { ShoppingCart } from "@phosphor-icons/react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import CDLogo from "../../../public/assets/logo-sm.png";
+import { CartButton } from "../../components/cartButton";
 import { Header } from "./styles";
+import { Button } from "../../components/button";
+import { ClockCounterClockwise } from "@phosphor-icons/react";
 
 const DefaultLayout = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Header>
@@ -11,10 +14,10 @@ const DefaultLayout = () => {
           <img src={CDLogo} alt="" />
         </NavLink>
         <nav>
-          <NavLink to="/history" title="bestellungen">
-            Meine Bestellungen
-          </NavLink>
-          <ShoppingCart weight="fill" />
+          <Button variant="icon" onClick={() => navigate("./history")}>
+            <ClockCounterClockwise />
+          </Button>
+          <CartButton number={1} />
         </nav>
       </Header>
       <main>

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 export interface ButtonContainerProps {
-  variant?: "primary" | "secondary" | "icon";
+  variant?: "primary" | "secondary" | "icon" | "cart";
 }
 
 export const ButtonContainer = styled.button<ButtonContainerProps>`
@@ -10,13 +10,15 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
       ? theme.yellow
       : variant == "secondary"
       ? theme.baseButton
-      : theme.purple};
+      : variant == "icon"
+      ? theme.purple
+      : variant == "cart" && theme.yellowLight};
     min-width: ${variant == "primary"
       ? "8.25rem"
       : variant == "secondary"
       ? "6rem"
       : "2.5rem"};
-
+    max-width: ${variant == "cart" && "2.5rem"};
     width: ${variant == "icon" && "2.5rem"};
     height: ${variant == "icon" && "2.5rem"};
     padding-inline: 0.5rem;
@@ -36,7 +38,9 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
     transition: 200ms;
 
     svg {
-      color: ${variant == "secondary" && theme.purple};
+      color: ${variant == "secondary"
+        ? theme.purple
+        : variant == "cart" && theme.yellowDark};
       width: 1.4rem;
       height: 1.4rem;
     }
@@ -46,7 +50,9 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
         ? theme.yellowDark
         : variant == "secondary"
         ? theme.baseHover
-        : theme.purpleDark};
+        : variant == "icon"
+        ? theme.purpleDark
+        : variant == "cart" && theme.yellow};
     }
   `}
 `;
