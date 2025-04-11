@@ -43,6 +43,9 @@ export const GlobalStyle = createGlobalStyle`
         outline: 0 0 0 2px ${(props) => props.theme.baseButton};
         background-color: ${({ theme }) => theme.baseInput};
     }
+    input:optional::after{
+        content: 'Opcional';
+    }
 
     a{
         text-decoration: none;

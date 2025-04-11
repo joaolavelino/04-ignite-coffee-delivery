@@ -1,14 +1,14 @@
 import { ShoppingCart } from "@phosphor-icons/react";
-import { Button } from "../button";
-import { CartButtonContainer, CartButtonContainerProps } from "./styles";
 import { useEffect, useState } from "react";
+import { Button } from "../button";
+import { CartButtonContainer } from "./styles";
 
-export interface CartButtonProps extends CartButtonContainerProps {
+export interface CartButtonProps {
   number?: number;
 }
 
 export const CartButton: React.FC<CartButtonProps> = ({ number = 0 }) => {
-  const [isFloat, setIsFloat] = useState(false);
+  const [isFloat, setIsFloat] = useState<boolean>(false);
 
   useEffect(() => {
     window.addEventListener("scroll", handleCartButtonPosition);

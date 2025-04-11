@@ -1,20 +1,16 @@
-import { ReactNode } from "react";
 import { ButtonContainer, ButtonContainerProps } from "./styles";
 
 export interface ButtonProps extends ButtonContainerProps {
-  onClick?: () => void;
-  type?: "button" | "submit";
-  children: ReactNode;
+  variant?: "primary" | "secondary" | "icon" | "cart";
 }
 
 export const Button: React.FC<ButtonProps> = ({
   variant = "primary",
-  type = "button",
-  onClick,
   children,
+  ...rest
 }) => {
   return (
-    <ButtonContainer variant={variant} type={type} onClick={onClick}>
+    <ButtonContainer variant={variant} {...rest}>
       {children}
     </ButtonContainer>
   );

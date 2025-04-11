@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export interface ButtonContainerProps {
+export interface ButtonContainerProps extends HTMLButtonElement {
   variant?: "primary" | "secondary" | "icon" | "cart";
 }
 
@@ -11,7 +11,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
       : variant == "secondary"
       ? theme.baseButton
       : variant == "icon"
-      ? theme.purple
+      ? theme.purpleDark
       : variant == "cart" && theme.yellowLight};
     min-width: ${variant == "primary"
       ? "8.25rem"
@@ -51,7 +51,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
         : variant == "secondary"
         ? theme.baseHover
         : variant == "icon"
-        ? theme.purpleDark
+        ? theme.purple
         : variant == "cart" && theme.yellow};
     }
   `}
