@@ -1,4 +1,5 @@
-#INGITE - COFFEE DELIVERY
+# INGITE - COFFEE DELIVERY
+
 Coffee Delivery is a learning-purpose project, focused on the _useContext_ and _useReducer_ hooks and _React Hook Form + Zod_ forms.
 
 Other important thing of this project is well documenting the process of starting a project from the ground up, setting everything up, in order to have a reliable source material for other _React + TS_ projects.
@@ -38,6 +39,48 @@ There will be a ESLint error in the file because an empty object.
 To fix this, we can make a rule on the `eslint.config.js` file:
 
 Just add `"@typescript-eslint/no-empty-object-type": "off",` on the `rules` object.
+
+### Create a global styles file
+
+On the `styles` folder, create a `global.ts` file that will provide all the general styles for the project.
+
+Inside of it, create the clobal style using `createGlobalStyle`, which is imported from `styled-components`.
+
+```ts
+import { createGlobalStyle, css } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
+ ${({ theme }) => css`
+   * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+   }
+
+   body {
+     background-color: ${theme.base.background};
+   }
+   p {
+     color: ${theme.base.text};
+     font-family: ${theme.font.text};
+   }
+
+ ... the rest of the global css
+ `}
+`;
+```
+
+I like using the this `css` syntax to build the styled components, so I don't need to call the theme on a function every time I need to use the props information.
+
+## React Router Dom Setup
+
+### Install the library
+
+`npm i react-router-dom`
+
+### Add the Browser Router
+
+The browser router is a provider that is put
 
 # React + TypeScript + Vite
 
