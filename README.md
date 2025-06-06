@@ -72,15 +72,61 @@ export const GlobalStyle = createGlobalStyle`
 
 I like using the this `css` syntax to build the styled components, so I don't need to call the theme on a function every time I need to use the props information.
 
+### Using multiple themes
+
+If you need multiple themes, you need to use set the theme with a state and a toggle functioncon the `App.tsx` an pass them to the `<Router>` component. So them can be passed as props on the `<Layout>` component.
+
+On this example, the default theme is dark the there is a secondary light theme.
+
+```tsx
+const [theme, setTheme] = useState<"default" | "light">("default");
+
+const currentTheme = theme == "default" ? defaultTheme : lightTheme;
+
+function toggleTheme() {
+  setTheme((state) => (state == "default" ? "light" : "default"));
+}
+```
+
 ## React Router Dom Setup
 
 ### Install the library
 
 `npm i react-router-dom`
 
-### Add the Browser Router
+### Create the Router Component
 
-The browser router is a provider that is put
+Create the `Router.tsx` file and inside use the `<Routes>` (plural) provider imported from `react-router-dom`.
+
+Inside `<Routes>` we need create the routing tree using the `<Route>` (singular) coponent.
+
+Inside each `<Route>` we need to pass the `element` and the `path` to it.
+The element is the component that will be opened on that route.
+
+### Create A Layout Component
+
+The layout component is something that will encapsulate the routes below on the routing tree.
+
+There can be multiple Layouts used as branches on the routing tree.
+
+Example of a routing tree with multiple layouts:
+
+```jsx
+<Route path='/' element={<Layout1>}>
+  <Route path='/home' element={<Home/>}> /home route with layout 1
+</Route>
+<Route path='/admin' element={<Layout2>}>
+  <Route path='/pannel' element={<AdminPannel/>}> /admin/pannel route with layout 2
+</Route>
+```
+
+On creating a layout component, all is needed is to create the component and insert the `<Outlet/>` component on the place where the component passed on the `<Route>` component as the `element`prop. The Outlet works like `{children}`.
+
+### Add the Browser Router and the Router Component
+
+The browser router is a provider that is put on the `App.js` file. Inside of the `<BrowserRouter>` provider, insert the created `<Router>` component (not the one from `react router dom`).
+
+- If multiple teames are being used, pass the theme state and the toggle funcion to the `<Router>` component. (Remember to create the interface with the expected props.)
 
 # React + TypeScript + Vite
 
