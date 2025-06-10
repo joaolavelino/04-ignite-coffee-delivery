@@ -1,8 +1,11 @@
 import styled, { css } from "styled-components";
 import { SummaryCard } from "./SummaryCard";
-import { useNavigate } from "react-router-dom";
+import type { ReactNode } from "react";
+import { Button } from "../../../components/Button";
 
-export interface OrderSummaryProps {}
+export interface OrderSummaryProps {
+  children: ReactNode;
+}
 
 const dummyData = [
   {
@@ -29,7 +32,7 @@ const dummyData = [
   },
   {
     drink: {
-      id: "caf-op-02",
+      id: "caf-op-03",
       name: "Espresso Americano",
       description: "Expresso diluído, menos intenso que o tradicional",
       price: 4.9,
@@ -40,18 +43,22 @@ const dummyData = [
   },
 ];
 
-export const OrderSummary: React.FC<OrderSummaryProps> = () => {
-  const navigate = useNavigate();
+export const OrderSummary: React.FC<OrderSummaryProps> = ({ children }) => {
+  // const navigate = useNavigate();
 
-  function confirmOrder() {
-    navigate("/confirmation");
-  }
+  // function confirmOrder() {
+  //   navigate("/confirmation");
+  // }
 
   return (
     <StyledSummary>
       <div className="card-list">
         {dummyData.map((item) => (
-          <SummaryCard drink={item.drink} quantity={item.quantity} />
+          <SummaryCard
+            drink={item.drink}
+            quantity={item.quantity}
+            key={item.drink.id}
+          />
         ))}
       </div>
       <div className="subtotals">
@@ -70,9 +77,10 @@ export const OrderSummary: React.FC<OrderSummaryProps> = () => {
           <b>R$ 15,34</b>
         </p>
       </div>
-      <button className="confirm-btn" onClick={confirmOrder}>
+      {children}
+      <Button color="yellow" type="submit">
         Confirmar Pedido
-      </button>
+      </Button>
     </StyledSummary>
   );
 };

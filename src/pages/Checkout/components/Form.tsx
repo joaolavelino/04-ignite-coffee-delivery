@@ -5,14 +5,17 @@ import {
   MapPinIcon,
   MoneyIcon,
 } from "@phosphor-icons/react";
+import { useFormContext } from "react-hook-form";
 import styled, { css, useTheme } from "styled-components";
 
 export interface AddressFormProps {}
 
 export const AddressForm: React.FC<AddressFormProps> = () => {
   const theme = useTheme();
+  const { register } = useFormContext();
+
   return (
-    <StyledForm action="POST">
+    <StyledForm>
       <section>
         <header>
           <MapPinIcon color={theme.yellow[700]} size={20} />
@@ -27,22 +30,27 @@ export const AddressForm: React.FC<AddressFormProps> = () => {
           <input
             className="line1"
             type="text"
-            name="zip"
+            {...register("zip")}
             id="zip"
             placeholder="CEP"
           />
           <input
             className="line2"
             type="text"
-            name="street"
+            {...register("street")}
             id="street"
             placeholder="Rua"
           />
           <div className="line3">
-            <input type="text" name="number" id="number" placeholder="Número" />
             <input
               type="text"
-              name="additional"
+              {...register("number")}
+              id="number"
+              placeholder="Número"
+            />
+            <input
+              type="text"
+              {...register("additional")}
               id="additional"
               placeholder="Complemento (Opcional)"
             />
@@ -50,12 +58,22 @@ export const AddressForm: React.FC<AddressFormProps> = () => {
           <div className="line4">
             <input
               type="text"
-              name="district"
+              {...register("district")}
               id="district"
               placeholder="Bairro"
             />
-            <input type="text" name="city" id="city" placeholder="Cidade" />
-            <input type="text" name="state" id="state" placeholder="UF" />
+            <input
+              type="text"
+              {...register("city")}
+              id="city"
+              placeholder="Cidade"
+            />
+            <input
+              type="text"
+              {...register("state")}
+              id="state"
+              placeholder="UF"
+            />
           </div>
         </fieldset>
       </section>
@@ -88,7 +106,7 @@ export const AddressForm: React.FC<AddressFormProps> = () => {
   );
 };
 
-const StyledForm = styled.form`
+const StyledForm = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;

@@ -135,6 +135,60 @@ The new instalation command is `npm i @phosphor-icons/react`
 
 [Check the documentation here:](https://github.com/phosphor-icons/react)
 
+## REACT HOOK FORM + ZOD
+
+### Documentation:
+
+Check the documentations:
+
+- React Hook Form: https://react-hook-form.com/get-started
+- Zod: https://zod.dev
+
+### First step:
+
+```ts
+npm install react-hook-form
+npm install zod
+```
+
+### Start with the useForm hook
+
+Destruct the returning object of the hook `useForm` to get the methods and variables from the library. This hook creates a 'new form' that can interact with the DOM and provides the tools for this integration.
+
+### Registering fields
+
+This function sets a new input inside the form created by RHF. It gets the name on the forma as a prop. It's used as a spread operator, because it returns a series of parameters for the input. If they need a value, it will be the name of the input, passed as a parameter.
+
+`{...register("name-of-field")}`
+
+### Form Provider
+
+Your form can be spread on multiple components, on this case, the submit button is on a separate component. To handle this, it's possible to create the on the parent component and use the `<FormProvider> component to pass the information to the components.
+
+The form is created outside of the provider with the handleSubmit function.
+
+In order to pass the information downwards, the useForm hook needs to be inside of a variable and be passed inside the FormProvider tag:
+
+```tsx
+const addressForm = useForm();
+const {handleSubmit} = addressForm
+function submitFunction (){}
+...
+<FormProvider {...adressForm}>
+  <form onSubmit={handleSubmit(submitFunction)}>
+    <Component1> // fields are here
+    <Component2> // submit button is here
+  </Form>
+</FormProvider>
+```
+
+Inside the components, the useForm methods and variables are available using the `useFormContext` hook.
+
+````tsx
+import { useFormContext } from "react-hook-form";
+
+const {register} = useFormContext
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -166,7 +220,7 @@ export default tseslint.config({
     },
   },
 });
-```
+````
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
