@@ -128,6 +128,13 @@ The browser router is a provider that is put on the `App.js` file. Inside of the
 
 - If multiple teames are being used, pass the theme state and the toggle funcion to the `<Router>` component. (Remember to create the interface with the expected props.)
 
+## Phosphor React
+
+Phosphor react updated the library.
+The new instalation command is `npm i @phosphor-icons/react`
+
+[Check the documentation here:](https://github.com/phosphor-icons/react)
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

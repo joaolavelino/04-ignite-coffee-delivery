@@ -11,7 +11,6 @@ function App() {
       <BrowserRouter>
         <Router />
       </BrowserRouter>
-      <h1>Coffee Delivery</h1>
     </ThemeProvider>
   );
 }

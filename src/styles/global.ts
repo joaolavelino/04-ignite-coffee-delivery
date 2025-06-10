@@ -10,6 +10,9 @@ export const GlobalStyle = createGlobalStyle`
 
    body {
      background-color: ${theme.base.background};
+     max-width: 1440px;
+     padding: 0 10rem;
+     margin: 0 auto;
    }
    p {
      color: ${theme.base.text};
@@ -17,9 +20,21 @@ export const GlobalStyle = createGlobalStyle`
    }
    h1,
    h2,
-   h3 {
+   h3,
+   h4 {
      color: ${theme.base.title};
      font-family: ${theme.font.title};
+   }
+   button {
+     cursor: pointer;
+     transition: 200ms;
+   }
+
+   input {
+     padding: 0.75rem;
+     background-color: ${theme.base.input};
+     border: 1px solid ${theme.base.button};
+     border-radius: 4px;
    }
  `}
 `;

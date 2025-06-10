@@ -30,9 +30,12 @@ export const defaultTheme = {
     500: "#66CE88",
     700: "#24864E",
   },
+  darkred: "#d90909",
 
   font: {
     title: "'Baloo 2', sans-serif",
     text: "'Roboto', sans-serif",
   },
+  cardBorder: "0 2rem 0 2rem",
+  cardShadow: "box-shadow: 2px 2px 8px #00000020;",
 };
