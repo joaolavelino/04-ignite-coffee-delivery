@@ -45,168 +45,164 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = () => {
   const currentPaymentMethod = watch("paymentMethod");
 
   return (
-    <>
-      <StyledLayout>
-        <FormProvider {...addressForm}>
-          <form onSubmit={addressForm.handleSubmit(submitFunction)}>
-            <StyledForm>
-              <section>
-                <header>
-                  <MapPinIcon color={theme.yellow[700]} size={20} />
-                  <div>
-                    <p className="title">Endereço de entrega</p>
-                    <p className="subtitle">
-                      Informe o endereço onde deseja receber seu pedido
-                    </p>
-                  </div>
-                </header>
-                <fieldset>
-                  <InputContainer>
-                    <input
-                      className="line1"
-                      type="text"
-                      {...register("zip")}
-                      id="zip"
-                      placeholder="CEP"
-                    />
-                    <div className="errorContainer">
-                      {errors.zip && <p>{errors.zip.message}</p>}
-                    </div>
-                  </InputContainer>
-                  <InputContainer>
-                    <input
-                      className="line2"
-                      type="text"
-                      {...register("street")}
-                      id="street"
-                      placeholder="Rua"
-                    />
-                    <div className="errorContainer">
-                      {errors.street && <p>{errors.street.message}</p>}
-                    </div>
-                  </InputContainer>
-
-                  <div className="line3">
-                    <InputContainer>
-                      <input
-                        type="text"
-                        {...register("number")}
-                        id="number"
-                        placeholder="Número"
-                      />
-                      <div className="errorContainer">
-                        {errors.number && <p>{errors.number.message}</p>}
-                      </div>
-                    </InputContainer>
-                    <InputContainer>
-                      <input
-                        type="text"
-                        {...register("additional")}
-                        id="additional"
-                        placeholder="Complemento (Opcional)"
-                      />
-                      <div className="errorContainer">
-                        {errors.additional && (
-                          <p>{errors.additional.message}</p>
-                        )}
-                      </div>
-                    </InputContainer>
-                  </div>
-                  <div className="line4">
-                    <InputContainer>
-                      <input
-                        type="text"
-                        {...register("district")}
-                        id="district"
-                        placeholder="Bairro"
-                      />
-                      <div className="errorContainer">
-                        {errors.district && <p>{errors.district.message}</p>}
-                      </div>
-                    </InputContainer>
-                    <InputContainer>
-                      <input
-                        type="text"
-                        {...register("city")}
-                        id="city"
-                        placeholder="Cidade"
-                      />
-                      <div className="errorContainer">
-                        {errors.city && <p>{errors.city.message}</p>}
-                      </div>
-                    </InputContainer>
-                    <InputContainer>
-                      <input
-                        type="text"
-                        {...register("state")}
-                        id="state"
-                        placeholder="UF"
-                      />
-                      <div className="errorContainer">
-                        {errors.state && <p>{errors.state.message}</p>}
-                      </div>
-                    </InputContainer>
-                  </div>
-                </fieldset>
-              </section>
-              <section>
-                <header>
-                  <CurrencyDollarIcon color={theme.purple[500]} size={20} />
-                  <div>
-                    <p className="title">Pagamento</p>
-                    <p className="subtitle">
-                      O pagamento é feito na entrega. Escolha a forma que deseja
-                      pagar
-                    </p>
-                  </div>
-                </header>
+    <FormProvider {...addressForm}>
+      <form onSubmit={addressForm.handleSubmit(submitFunction)}>
+        <StyledLayout>
+          <StyledForm>
+            <section>
+              <header>
+                <MapPinIcon color={theme.yellow[700]} size={20} />
+                <div>
+                  <p className="title">Endereço de entrega</p>
+                  <p className="subtitle">
+                    Informe o endereço onde deseja receber seu pedido
+                  </p>
+                </div>
+              </header>
+              <fieldset>
                 <InputContainer>
-                  <div className="paymentOptions">
-                    <button
-                      type="button"
-                      onClick={() => choosePaymentMethod("credit")}
-                      className={`${
-                        currentPaymentMethod === "credit" && "selected"
-                      }`}
-                    >
-                      <CreditCardIcon />
-                      Cartão de crédito
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => choosePaymentMethod("debit")}
-                      className={`${
-                        currentPaymentMethod === "debit" && "selected"
-                      }`}
-                    >
-                      <BankIcon />
-                      Cartão de débito
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => choosePaymentMethod("cash")}
-                      className={`${
-                        currentPaymentMethod === "cash" && "selected"
-                      }`}
-                    >
-                      <MoneyIcon />
-                      Dinheiro
-                    </button>
-                  </div>
+                  <input
+                    className="line1"
+                    type="text"
+                    {...register("zip")}
+                    id="zip"
+                    placeholder="CEP"
+                  />
                   <div className="errorContainer">
-                    {errors.paymentMethod && (
-                      <p>{errors.paymentMethod.message}</p>
-                    )}
+                    {errors.zip && <p>{errors.zip.message}</p>}
                   </div>
                 </InputContainer>
-              </section>
-            </StyledForm>
+                <InputContainer>
+                  <input
+                    className="line2"
+                    type="text"
+                    {...register("street")}
+                    id="street"
+                    placeholder="Rua"
+                  />
+                  <div className="errorContainer">
+                    {errors.street && <p>{errors.street.message}</p>}
+                  </div>
+                </InputContainer>
 
-            <OrderSummary />
-          </form>
-        </FormProvider>
-      </StyledLayout>
-    </>
+                <div className="line3">
+                  <InputContainer>
+                    <input
+                      type="text"
+                      {...register("number")}
+                      id="number"
+                      placeholder="Número"
+                    />
+                    <div className="errorContainer">
+                      {errors.number && <p>{errors.number.message}</p>}
+                    </div>
+                  </InputContainer>
+                  <InputContainer>
+                    <input
+                      type="text"
+                      {...register("additional")}
+                      id="additional"
+                      placeholder="Complemento (Opcional)"
+                    />
+                    <div className="errorContainer">
+                      {errors.additional && <p>{errors.additional.message}</p>}
+                    </div>
+                  </InputContainer>
+                </div>
+                <div className="line4">
+                  <InputContainer>
+                    <input
+                      type="text"
+                      {...register("district")}
+                      id="district"
+                      placeholder="Bairro"
+                    />
+                    <div className="errorContainer">
+                      {errors.district && <p>{errors.district.message}</p>}
+                    </div>
+                  </InputContainer>
+                  <InputContainer>
+                    <input
+                      type="text"
+                      {...register("city")}
+                      id="city"
+                      placeholder="Cidade"
+                    />
+                    <div className="errorContainer">
+                      {errors.city && <p>{errors.city.message}</p>}
+                    </div>
+                  </InputContainer>
+                  <InputContainer>
+                    <input
+                      type="text"
+                      {...register("state")}
+                      id="state"
+                      placeholder="UF"
+                    />
+                    <div className="errorContainer">
+                      {errors.state && <p>{errors.state.message}</p>}
+                    </div>
+                  </InputContainer>
+                </div>
+              </fieldset>
+            </section>
+            <section>
+              <header>
+                <CurrencyDollarIcon color={theme.purple[500]} size={20} />
+                <div>
+                  <p className="title">Pagamento</p>
+                  <p className="subtitle">
+                    O pagamento é feito na entrega. Escolha a forma que deseja
+                    pagar
+                  </p>
+                </div>
+              </header>
+              <InputContainer>
+                <div className="paymentOptions">
+                  <button
+                    type="button"
+                    onClick={() => choosePaymentMethod("credit")}
+                    className={`${
+                      currentPaymentMethod === "credit" && "selected"
+                    }`}
+                  >
+                    <CreditCardIcon />
+                    Cartão de crédito
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => choosePaymentMethod("debit")}
+                    className={`${
+                      currentPaymentMethod === "debit" && "selected"
+                    }`}
+                  >
+                    <BankIcon />
+                    Cartão de débito
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => choosePaymentMethod("cash")}
+                    className={`${
+                      currentPaymentMethod === "cash" && "selected"
+                    }`}
+                  >
+                    <MoneyIcon />
+                    Dinheiro
+                  </button>
+                </div>
+                <div className="errorContainer">
+                  {errors.paymentMethod && (
+                    <p>{errors.paymentMethod.message}</p>
+                  )}
+                </div>
+              </InputContainer>
+            </section>
+          </StyledForm>
+
+          <OrderSummary />
+        </StyledLayout>
+      </form>
+    </FormProvider>
   );
 };
 
@@ -310,6 +306,7 @@ const InputContainer = styled.div`
 `;
 
 const StyledLayout = styled.main`
+  width: 100%;
   display: grid;
   grid-template-columns: 640px 1fr;
   gap: 1rem;
