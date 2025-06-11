@@ -1,11 +1,8 @@
 import styled, { css } from "styled-components";
-import { SummaryCard } from "./SummaryCard";
-import type { ReactNode } from "react";
 import { Button } from "../../../components/Button";
+import { SummaryCard } from "./SummaryCard";
 
-export interface OrderSummaryProps {
-  children: ReactNode;
-}
+export interface OrderSummaryProps {}
 
 const dummyData = [
   {
@@ -43,13 +40,7 @@ const dummyData = [
   },
 ];
 
-export const OrderSummary: React.FC<OrderSummaryProps> = ({ children }) => {
-  // const navigate = useNavigate();
-
-  // function confirmOrder() {
-  //   navigate("/confirmation");
-  // }
-
+export const OrderSummary: React.FC<OrderSummaryProps> = () => {
   return (
     <StyledSummary>
       <div className="card-list">
@@ -77,7 +68,6 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({ children }) => {
           <b>R$ 15,34</b>
         </p>
       </div>
-      {children}
       <Button color="yellow" type="submit">
         Confirmar Pedido
       </Button>
