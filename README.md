@@ -848,3 +848,34 @@ It's also possible to find the formState object on the `useFormContext`.
 I used watch and setValue to create the payment method selector.
 
 - There's a problem on using typescript and useFormContext, so I refactored the checkout page in order to it not to be needed. But i'm going to try to find a solution later, so I can create better form components with separate input components on a design system.
+
+### Extra steps (from last Project)
+
+Some olher information
+
+#### Set the initial values for the form
+
+NOTE: This is particularly usefull on update forms
+
+It's possible to send different settings as an object on the useForm hook call argument. One of those is the default values. The value of this setting is an object with the initial values of each input. The hook call will be like this:
+
+```tsx
+const { register, handleSubmit, watch } = useForm<newCycleFormData>({
+  defaultValues: { task: "", taskMinutesAmount: 0 },
+});
+```
+
+#### Reset a form:
+
+It's possible to get a reset form function from the useForm hook call.
+
+```tsx
+const { register, handleSubmit, watch, reset } = useForm<newCycleFormData>({
+  defaultValues: { task: "", taskMinutesAmount: 0 },
+});
+
+function handleCreateNewCycle(data: newCycleFormData) {
+  console.log(data);
+  reset();
+}
+```

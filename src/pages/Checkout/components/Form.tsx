@@ -15,7 +15,7 @@ import { OrderSummary } from "./Summary";
 
 export interface CheckoutFormProps {}
 
-type FormType = zod.infer<typeof addressFormSchema>;
+export type FormType = zod.infer<typeof addressFormSchema>;
 
 export const CheckoutForm: React.FC<CheckoutFormProps> = () => {
   const theme = useTheme();
