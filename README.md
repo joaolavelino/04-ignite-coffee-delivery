@@ -1064,3 +1064,20 @@ const [cyclesState, dispatch] = useReducer(
 ```
 
 ### 8 - Apply the context with the reducer to the project
+
+In order to make all the information and methods stored on the context, we need to envolve the component tree where it would be used. Inside the components the information is accessible using the `useContext` hook.
+
+```tsx
+function App() {
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <GlobalStyle />
+      <BrowserRouter>
+        <OrdersContextProvider>
+          <Router />
+        </OrdersContextProvider>
+      </BrowserRouter>
+    </ThemeProvider>
+  );
+}
+```

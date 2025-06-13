@@ -9,12 +9,12 @@ import { OrdersReducer } from "../reducers/orders/reducer";
 import { createInitialState } from "../util/functions";
 
 interface OrdersContextData extends OrdersData {
-  createOrder: (order: OrderType) => void;
+  addItemToOrder: (order: OrderType) => void;
   completeCurrentOrder: (checkoutData: FormType) => void;
   currentOrder: OrderType;
 }
 
-const OrdersContext = createContext({} as OrdersContextData);
+export const OrdersContext = createContext({} as OrdersContextData);
 
 interface OrdersContextProviderProps {
   children: ReactNode;
@@ -31,7 +31,7 @@ export const OrdersContextProvider: React.FC<OrdersContextProviderProps> = ({
 
   const { currentOrder, orders } = ordersState;
 
-  function createOrder(newOrder: OrderType) {
+  function addItemToOrder(newOrder: OrderType) {
     dispatch(createNewOrderAction(newOrder));
   }
 
@@ -53,7 +53,7 @@ export const OrdersContextProvider: React.FC<OrdersContextProviderProps> = ({
       value={{
         orders,
         currentOrder,
-        createOrder,
+        addItemToOrder,
         completeCurrentOrder,
       }}
     >

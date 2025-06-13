@@ -3,13 +3,16 @@ import { defaultTheme } from "./styles/themes/default";
 import { GlobalStyle } from "./styles/global";
 import { BrowserRouter } from "react-router-dom";
 import { Router } from "./Router";
+import { OrdersContextProvider } from "./contexts/OrdersContext";
 
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
       <BrowserRouter>
-        <Router />
+        <OrdersContextProvider>
+          <Router />
+        </OrdersContextProvider>
       </BrowserRouter>
     </ThemeProvider>
   );
