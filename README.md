@@ -879,3 +879,188 @@ function handleCreateNewCycle(data: newCycleFormData) {
   reset();
 }
 ```
+
+## CONTEXT and REDUCER
+
+Context will store data like a state, but better. It's also possible to store functions. Combined with useReducer, it's possible to manage the store state with different functions, called actions.
+
+### 1 - Create a context.
+
+Create context will store an object with information that will be available to many components inside a context variable.
+
+```tsx
+export const ContextName = createContext({
+  data: "it can be a string, object, array, number, etc.",
+});
+```
+
+_Note that the context is Capitalized because it will be soon a component_
+
+Inside the components, all that is stored in the context is availabe using the `useContext` hook:
+
+```tsx
+const { data, methods } = useContext(ContextName);
+```
+
+The key is preserving the immutability of this information. To change the information, the dispatch functions need to be available inside the context.
+
+To keep everything organized, use TS types or interfaces to create specific typing for the context, like this:
+
+```ts
+export type OrdersData = {
+  orderHistory: OrderType[];
+  currentOrder: OrderType;
+};
+```
+
+```tsx
+export const ordersContext = createContext({} as OrdersData);
+```
+
+This way the context will always expect this format of information.
+
+### 2 - Context Provider
+
+Inside the created context there is a 'sub-component'that is native from React's Context API: the provider. Like the `ThemeProvider` it encapsules the components that will need this information:
+
+```jsx
+const [state1,setState1]=useState(0)
+
+<DataContext.Provider value={{state1,setState1}}>
+   children components
+</DataContext.Provider>
+```
+
+In this case, all the cycles states information will be stored inside of this context component.
+To do so, it's important to have the types and interfaces declarations well organized, so we don't have an _entanglement_ of imports between interface components and context components. All of those can read the type declarations from the same source, independent of a component.
+
+### 3 - useReducer hook
+
+#### And That's when the magic starts!
+
+This is React's more complete state management tool . Unlike useState, useReducer can handle with more complex state information. The reducer function (`ordersReducer`, in this case) can change different parts of the state information with the dispatch function depending on the action you send to it. (The dispatch function of the state, the `setState` is always set to replace the entirety of the data of the state).
+
+_TLDR: useReducer is a way to deal with more complex data on a state and let you customize how the dispatch will handle it with Actions._
+
+The structure is similar to useState. You set the name of the state and the dispatch function, call the useReducer() hook and as an argument, instead of passing only the initial information, as we'd do with the useState() hook, we pass the reducer function and the initial value of the state. In this case:
+
+```tsx
+const [ordersState, dispatch] = useReducer(reducerFunction, {
+  cycles: [],
+  activeCycleId: null,
+});
+```
+
+The next step is to create the reducer Function.
+
+### 4 - Reducer Function
+
+The reducer function is a function that will handle the information contained in the state and return the updated state. It has normally a switch statement with a case for each possible Action it can perform. This function expects two arguments, the initial state and the action it will perform. At the application this reducer function will be called by the dispatcher of the useReducer hook.
+
+Here's an example of reducer function: You can add as many cases as necessary. Just create a new action for it.
+
+```tsx
+cexport function OrderReducer(state: OrdersState, action: OrdersAction) {
+  switch (action.type) {
+    case ActionTypes.ACTION NAME:
+      return {
+        ...state,
+        cycles: [...state.cycles, action.payload.newCycle],
+        activeCycleId: action.payload.newCycle.id,
+      };
+    default:
+      return state;
+  }
+}
+```
+
+### 5 - Dispatch and Actions
+
+To trigger the reducer, pass the `dispatch` function from the useReducer hook (like the dispatch function of a state `setState`).
+The dispatch recieves an action and, if needed, a payload (data to be used on the function).
+
+```tsx
+dispatch({
+  action: "ACTION NAME",
+  payload: data, //can be a string, id, object, etc, depending on the action
+});
+```
+
+There are many actions with different names and payloads. To organize all this, it's possible to type this actions:
+
+```ts
+export type OrdersAction =
+  | { type: "ADD_ORDER"; payload: OrderType }
+  | { type: "UPDATE_ORDER"; payload: OrderType }
+  | { type: "REMOVE_ITEM"; payload: { id: string; itemId: string } }
+  | { type: "COMPLETE_ORDER"; payload: { id: string } }
+  | { type: "ADD_ONE"; payload: { orderId: string; itemId: string } }
+  | { type: "REMOVE_ONE"; payload: { orderId: string; itemId: string } };
+```
+
+### 6 - Isolate actions and create dispatch functions
+
+As the project grows, it's easy to lose track of all the payloads for each action on the dispatch functions. So it's interesting to create functions that return exactly what each dispach action needs and give types to the parameters of the function, so the intellisense will be aware of the params.
+
+So on this step, I created a folder for each subject and inside there is the `reducer.ts` file with the reducer function and the `actions.ts` with the action types enum and the _action functions_ that will feed the dispatch functions (which are located on the cycles context file).
+
+```tsx
+export function createNewOrderAction(newOrder: OrderType) {
+  return {
+    type: ActionTypes.CREATE_ORDER,
+    payload: newOrder,
+  };
+}
+```
+
+Back on the Context component where the useReducer hook is called, you can create the _Dispatcher Functions_ to trigger each of the necessary actions.
+
+Inside of the context, create the `dispatch`function, but instead of the the object with action and payload, it's possible to use the _action functions_ created on the `actions` file.
+
+```tsx
+function createOrder(newOrder: OrderType) {
+  dispatch(createNewOrderAction(newOrder));
+}
+```
+
+It's also possible to insert other logic inside these functions, like a common function:
+
+```tsx
+function completeCurrentOrder(checkoutData: FormType) {
+  if (currentOrder) {
+    const { paymentMethod, ...adressInfo } = checkoutData;
+    const completeOrder: OrderType = {
+      ...currentOrder,
+      date: new Date(),
+      address: adressInfo,
+      payment: paymentMethod,
+    };
+    dispatch(completeOrderAction(completeOrder));
+  } else return;
+}
+```
+
+### 7 - Initializer Function
+
+The `useReducer` hook has a third parameter (just to remember: 1st param is the reducer function, the second is the initial state). This third parameter is the _initializer function_. This is the first action to be performed by the reducer. Normally used to fetch data from somewhere. (in this case, from the Local Storage).
+
+It's possible to pass `initialState` as an argument on the initializer funciton, so we can return this initial value, if there is no data found.
+
+```tsx
+const [cyclesState, dispatch] = useReducer(
+  CyclesReducer,
+  {
+    cycles: [],
+    activeCycleId: null,
+  },
+  //initializer - initial state is what was declared on the second param of the useReducer
+  (initialState) => {
+    const storedStateAsJson = localStorage.getItem(
+      "@ignite-timer:cycles-state-1.0.0"
+    );
+    return storedStateAsJson ? JSON.parse(storedStateAsJson) : initialState;
+  }
+);
+```
+
+### 8 - Apply the context with the reducer to the project

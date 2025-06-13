@@ -9,12 +9,19 @@ export type DrinkType = {
   tags: string[];
 };
 
+export type OrderDrinkInstance = { drink: DrinkType; quantity: number };
+
 export type AddressType = Omit<FormType, "paymentMethod">;
 
 export type OrderType = {
-  drinks: { item: DrinkType; quantity: number }[];
-  address: AddressType;
-  price: number;
+  id: string;
+  drinks: OrderDrinkInstance[];
+  address?: AddressType;
+  payment?: string;
+  date?: Date;
 };
 
-export type OrderHistoryType = OrderType[];
+export type OrdersData = {
+  orders: OrderType[];
+  currentOrder: OrderType;
+};
