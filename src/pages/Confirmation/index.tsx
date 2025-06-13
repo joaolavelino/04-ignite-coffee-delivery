@@ -5,13 +5,20 @@ import {
 } from "@phosphor-icons/react";
 import { BackButton, ConfirmationCard, IconCircle } from "./styles";
 import { useTheme } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react";
+import { OrdersContext } from "../../contexts/OrdersContext";
 
 export interface ConfirmationPageProps {}
 
 export const ConfirmationPage: React.FC<ConfirmationPageProps> = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const { orderId } = useParams();
+  const { orders } = useContext(OrdersContext);
+
+  const lastOrder = orders.find((el) => el.id == orderId);
+
   return (
     <>
       <ConfirmationCard>
@@ -27,9 +34,15 @@ export const ConfirmationPage: React.FC<ConfirmationPageProps> = () => {
               </IconCircle>
               <div>
                 <p>
-                  Entrega em <b>Rua do Destinatário, 234</b>
+                  Entrega em{" "}
+                  <b>
+                    {lastOrder?.address?.street}, {lastOrder?.address?.number}
+                  </b>
                 </p>
-                <p>Bairro - Cidade, Estado</p>
+                <p>
+                  {lastOrder?.address?.district} - {lastOrder?.address?.city},{" "}
+                  {lastOrder?.address?.state}
+                </p>
               </div>
             </div>
             <div className="confirm-item">

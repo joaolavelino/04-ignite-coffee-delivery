@@ -1079,3 +1079,25 @@ function App() {
   );
 }
 ```
+
+### BACK TO React Router Dom - URL Params
+
+It's possible to send data using the url with React Router Dom. To do so, you need to:
+
+1. On the router component, and the indication of the data that'll be sent through the url on the _path_ prop of the `<Route>`component:
+
+```tsx
+<Route path="/confirmation/:orderId" element={<ConfirmationPage />} />
+```
+
+2. Pass the data on the `navigate` function:
+
+```tsx
+navigate(`/confirmation/${currentOrder.id}`);
+```
+
+3. Get this information on the page component (the one that's send on the `element` prop of the `<Route>` component):
+
+```tsx
+const { orderId } = useParams();
+```

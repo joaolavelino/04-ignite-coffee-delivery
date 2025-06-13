@@ -12,6 +12,8 @@ import styled, { css, useTheme } from "styled-components";
 import zod from "zod";
 import { addressFormSchema } from "./formValidation";
 import { OrderSummary } from "./Summary";
+import { useContext } from "react";
+import { OrdersContext } from "../../../contexts/OrdersContext";
 
 export interface CheckoutFormProps {}
 
@@ -19,7 +21,7 @@ export type FormType = zod.infer<typeof addressFormSchema>;
 
 export const CheckoutForm: React.FC<CheckoutFormProps> = () => {
   const theme = useTheme();
-
+  const { currentOrder, completeCurrentOrder } = useContext(OrdersContext);
   const navigate = useNavigate();
   const addressForm = useForm<FormType>({
     resolver: zodResolver(addressFormSchema),
@@ -28,7 +30,8 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = () => {
 
   function submitFunction(data: FormType) {
     console.log(data);
-    navigate("/confirmation");
+    completeCurrentOrder(data);
+    navigate(`/confirmation/${currentOrder.id}`);
   }
 
   const {

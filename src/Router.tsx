@@ -14,7 +14,7 @@ export const Router: React.FC<RouterProps> = () => {
         <Route path="/" element={<MenuPage />} />
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/confirmation" element={<ConfirmationPage />} />
+        <Route path="/confirmation/:orderId" element={<ConfirmationPage />} />
       </Route>
     </Routes>
   );
