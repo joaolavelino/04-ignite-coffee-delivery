@@ -889,9 +889,7 @@ Context will store data like a state, but better. It's also possible to store fu
 Create context will store an object with information that will be available to many components inside a context variable.
 
 ```tsx
-export const ContextName = createContext({
-  data: "it can be a string, object, array, number, etc.",
-});
+export const ContextName = createContext({} as DataTypeName);
 ```
 
 _Note that the context is Capitalized because it will be soon a component_

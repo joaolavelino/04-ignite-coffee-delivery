@@ -9,11 +9,15 @@ export interface CartButtonProps {}
 
 export const CartButton: React.FC<CartButtonProps> = () => {
   const navigate = useNavigate();
-  const { orders } = useContext(OrdersContext);
+  const { currentOrder } = useContext(OrdersContext);
+  let quantityOnCart = 0;
+  currentOrder.drinks.forEach((item) => (quantityOnCart += item.quantity));
 
   return (
     <CartButtonContainer>
-      <NumberContainer number={orders.length}>{orders.length}</NumberContainer>
+      <NumberContainer quantity={+quantityOnCart}>
+        {quantityOnCart}
+      </NumberContainer>
       <IconButton onClick={() => navigate("/checkout")} color="yellow">
         <ShoppingCartIcon weight="fill" />
       </IconButton>

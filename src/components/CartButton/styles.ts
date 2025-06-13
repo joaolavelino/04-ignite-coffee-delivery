@@ -14,10 +14,10 @@ export const CartButtonContainer = styled.div`
 `;
 
 interface NumberContainerProps {
-  number: number;
+  quantity: number;
 }
 export const NumberContainer = styled.div<NumberContainerProps>`
-  ${({ theme, number }) => css`
+  ${({ theme, quantity }) => css`
     position: relative;
     top: +10px;
     right: -10px;
@@ -31,6 +31,6 @@ export const NumberContainer = styled.div<NumberContainerProps>`
     width: 1.25rem;
     height: 1.25rem;
     border-radius: 50%;
-    opacity: ${number > 0 ? 1 : 0};
+    opacity: ${quantity > 0 ? 1 : 0};
   `}
 `;

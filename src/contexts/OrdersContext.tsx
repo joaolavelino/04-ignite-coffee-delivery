@@ -1,15 +1,19 @@
 import { createContext, useReducer, type ReactNode } from "react";
-import type { OrdersData, OrderType } from "../@types/types";
+import type {
+  OrderDrinkInstance,
+  OrdersData,
+  OrderType,
+} from "../@types/types";
 import type { FormType } from "../pages/Checkout/components/Form";
 import {
+  addDrinkToCartAction,
   completeOrderAction,
-  createNewOrderAction,
 } from "../reducers/orders/actions";
 import { OrdersReducer } from "../reducers/orders/reducer";
 import { createInitialState } from "../util/functions";
 
 interface OrdersContextData extends OrdersData {
-  addItemToOrder: (order: OrderType) => void;
+  addItemToOrder: (itemToAdd: OrderDrinkInstance) => void;
   completeCurrentOrder: (checkoutData: FormType) => void;
   currentOrder: OrderType;
 }
@@ -31,8 +35,8 @@ export const OrdersContextProvider: React.FC<OrdersContextProviderProps> = ({
 
   const { currentOrder, orders } = ordersState;
 
-  function addItemToOrder(newOrder: OrderType) {
-    dispatch(createNewOrderAction(newOrder));
+  function addItemToOrder(itemToAdd: OrderDrinkInstance) {
+    dispatch(addDrinkToCartAction(itemToAdd));
   }
 
   function completeCurrentOrder(checkoutData: FormType) {

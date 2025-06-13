@@ -49,7 +49,7 @@ export const MenuPage: React.FC<MenuPageProps> = () => {
           </p>
           <StyledFeatureList>
             {featuresList.map((item) => (
-              <FeatureItem color={item.color}>
+              <FeatureItem color={item.color} key={item.text}>
                 <div className="icon-container">{item.icon}</div>
                 <p>{item.text}</p>
               </FeatureItem>

@@ -22,6 +22,8 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
   function deleteOne() {
     window.alert("begone!");
   }
+
+  const multipliedPrice = quantity * drink.price;
   return (
     <StyledCard>
       <div className="left-pannel">
@@ -41,7 +43,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
         </div>
       </div>
       <p>
-        <b>R$ {drink.price.toFixed(2)}</b>
+        <b>R$ {multipliedPrice.toFixed(2)}</b>
       </p>
     </StyledCard>
   );

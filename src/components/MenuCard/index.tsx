@@ -1,9 +1,10 @@
 import { ShoppingCartIcon } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import type { DrinkType } from "../../@types/types";
 import { IconButton } from "../IconButton";
 import { QuantitySelector } from "../QuantitySelector";
 import { StyledCard } from "./styles";
+import { OrdersContext } from "../../contexts/OrdersContext";
 
 export interface MenuCardProps {
   drink: DrinkType;
@@ -11,6 +12,7 @@ export interface MenuCardProps {
 
 export const MenuCard: React.FC<MenuCardProps> = ({ drink }) => {
   const [quantity, setQuantity] = useState<number>(1);
+  const { addItemToOrder } = useContext(OrdersContext);
 
   function addOne() {
     setQuantity((state) => state + 1);
@@ -18,10 +20,6 @@ export const MenuCard: React.FC<MenuCardProps> = ({ drink }) => {
 
   function removeOne() {
     if (quantity > 0) setQuantity((state) => state - 1);
-  }
-
-  function addToCart() {
-    console.log("added");
   }
 
   return (
@@ -47,7 +45,10 @@ export const MenuCard: React.FC<MenuCardProps> = ({ drink }) => {
             removeOne={removeOne}
             quantity={quantity}
           />
-          <IconButton color="purple" onClick={addToCart}>
+          <IconButton
+            color="purple"
+            onClick={() => addItemToOrder({ drink, quantity })}
+          >
             <ShoppingCartIcon weight="fill" />
           </IconButton>
         </div>

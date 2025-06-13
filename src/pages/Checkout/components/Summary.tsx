@@ -1,50 +1,23 @@
 import styled, { css } from "styled-components";
 import { Button } from "../../../components/Button";
 import { SummaryCard } from "./SummaryCard";
+import { useContext } from "react";
+import { OrdersContext } from "../../../contexts/OrdersContext";
 
 export interface OrderSummaryProps {}
 
-const dummyData = [
-  {
-    drink: {
-      id: "caf-op-01",
-      name: "Espresso Tradicional",
-      description: "O tradicional café feito com água quente e grãos moídos",
-      price: 4.9,
-      imageUrl: "/coffees/espresso.png",
-      tags: ["tradicional"],
-    },
-    quantity: 2,
-  },
-  {
-    drink: {
-      id: "caf-op-02",
-      name: "Espresso Americano",
-      description: "Expresso diluído, menos intenso que o tradicional",
-      price: 4.9,
-      imageUrl: "/coffees/espresso-americano.png",
-      tags: ["tradicional"],
-    },
-    quantity: 1,
-  },
-  {
-    drink: {
-      id: "caf-op-03",
-      name: "Espresso Americano",
-      description: "Expresso diluído, menos intenso que o tradicional",
-      price: 4.9,
-      imageUrl: "/coffees/espresso-americano.png",
-      tags: ["tradicional"],
-    },
-    quantity: 1,
-  },
-];
-
 export const OrderSummary: React.FC<OrderSummaryProps> = () => {
+  const { currentOrder } = useContext(OrdersContext);
+  const itemsPrice = currentOrder.drinks.reduce(
+    (sum, current) => sum + current.quantity * current.drink.price,
+    0
+  );
+  const deliveryTax = itemsPrice * 0.2;
+
   return (
     <StyledSummary>
       <div className="card-list">
-        {dummyData.map((item) => (
+        {currentOrder.drinks.map((item) => (
           <SummaryCard
             drink={item.drink}
             quantity={item.quantity}
@@ -54,18 +27,18 @@ export const OrderSummary: React.FC<OrderSummaryProps> = () => {
       </div>
       <div className="subtotals">
         <p>Total de itens</p>
-        <p>R$ 12,34</p>
+        <p>R$ {itemsPrice.toFixed(2)}</p>
       </div>
       <div className="subtotals">
-        <p>Total de itens</p>
-        <p>R$ 3,00</p>
+        <p>Taxa de entrega</p>
+        <p>R$ {deliveryTax.toFixed(2)}</p>
       </div>
       <div className="total">
         <p>
           <b>Total</b>
         </p>
         <p>
-          <b>R$ 15,34</b>
+          <b>R$ {(deliveryTax + itemsPrice).toFixed(2)}</b>
         </p>
       </div>
       <Button color="yellow" type="submit">
