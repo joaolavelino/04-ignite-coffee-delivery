@@ -3,6 +3,8 @@ import type { DrinkType } from "../../../@types/types";
 import { QuantitySelector } from "../../../components/QuantitySelector";
 import { IconButton } from "../../../components/IconButton";
 import styled, { css } from "styled-components";
+import { useContext } from "react";
+import { OrdersContext } from "../../../contexts/OrdersContext";
 
 export interface SummaryCardProps {
   drink: DrinkType;
@@ -13,14 +15,17 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
   drink,
   quantity,
 }) => {
+  const { addOneToAnItem, removeItemFromOrder, removeOneFromAnItem } =
+    useContext(OrdersContext);
+
   function addOne() {
-    window.alert("one more");
+    addOneToAnItem(drink.id);
   }
   function removeOne() {
-    window.alert("one less");
+    removeOneFromAnItem(drink.id);
   }
   function deleteOne() {
-    window.alert("begone!");
+    removeItemFromOrder(drink.id);
   }
 
   const multipliedPrice = quantity * drink.price;
@@ -36,6 +41,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
               removeOne={removeOne}
               quantity={quantity}
             />
+
             <IconButton onClick={deleteOne} color="yellow">
               <TrashIcon />
             </IconButton>

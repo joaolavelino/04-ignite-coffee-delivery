@@ -14,11 +14,11 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
 }) => {
   return (
     <StyledSelector>
-      <button onClick={removeOne} disabled={quantity == 0}>
+      <button onClick={removeOne} type="button" disabled={quantity == 1}>
         <MinusIcon />
       </button>
       <p>{quantity}</p>
-      <button onClick={addOne}>
+      <button onClick={addOne} type="button">
         <PlusIcon />
       </button>
     </StyledSelector>

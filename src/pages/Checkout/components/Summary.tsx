@@ -1,8 +1,8 @@
+import { useContext } from "react";
 import styled, { css } from "styled-components";
 import { Button } from "../../../components/Button";
-import { SummaryCard } from "./SummaryCard";
-import { useContext } from "react";
 import { OrdersContext } from "../../../contexts/OrdersContext";
+import { SummaryCard } from "./SummaryCard";
 
 export interface OrderSummaryProps {}
 
@@ -18,11 +18,13 @@ export const OrderSummary: React.FC<OrderSummaryProps> = () => {
     <StyledSummary>
       <div className="card-list">
         {currentOrder.drinks.map((item) => (
-          <SummaryCard
-            drink={item.drink}
-            quantity={item.quantity}
-            key={item.drink.id}
-          />
+          <>
+            <SummaryCard
+              drink={item.drink}
+              quantity={item.quantity}
+              key={item.drink.id}
+            />
+          </>
         ))}
       </div>
       <div className="subtotals">

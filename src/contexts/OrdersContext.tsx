@@ -7,7 +7,10 @@ import type {
 import type { FormType } from "../pages/Checkout/components/Form";
 import {
   addDrinkToCartAction,
+  addOneToAnItemAction,
   completeOrderAction,
+  removeItemFromOrderAction,
+  removeOneFromAnItemAction,
 } from "../reducers/orders/actions";
 import { OrdersReducer } from "../reducers/orders/reducer";
 import { createInitialState } from "../util/functions";
@@ -15,6 +18,9 @@ import { createInitialState } from "../util/functions";
 interface OrdersContextData extends OrdersData {
   addItemToOrder: (itemToAdd: OrderDrinkInstance) => void;
   completeCurrentOrder: (checkoutData: FormType) => void;
+  addOneToAnItem: (itemId: string) => void;
+  removeOneFromAnItem: (itemId: string) => void;
+  removeItemFromOrder: (itemId: string) => void;
   currentOrder: OrderType;
 }
 
@@ -52,6 +58,16 @@ export const OrdersContextProvider: React.FC<OrdersContextProviderProps> = ({
     } else return;
   }
 
+  function addOneToAnItem(drinkId: string) {
+    dispatch(addOneToAnItemAction(drinkId));
+  }
+  function removeOneFromAnItem(drinkId: string) {
+    dispatch(removeOneFromAnItemAction(drinkId));
+  }
+  function removeItemFromOrder(drinkId: string) {
+    dispatch(removeItemFromOrderAction(drinkId));
+  }
+
   return (
     <OrdersContext.Provider
       value={{
@@ -59,6 +75,9 @@ export const OrdersContextProvider: React.FC<OrdersContextProviderProps> = ({
         currentOrder,
         addItemToOrder,
         completeCurrentOrder,
+        addOneToAnItem,
+        removeItemFromOrder,
+        removeOneFromAnItem,
       }}
     >
       {children}
