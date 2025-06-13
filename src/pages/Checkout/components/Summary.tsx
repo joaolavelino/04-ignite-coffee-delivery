@@ -3,16 +3,14 @@ import styled, { css } from "styled-components";
 import { Button } from "../../../components/Button";
 import { OrdersContext } from "../../../contexts/OrdersContext";
 import { SummaryCard } from "./SummaryCard";
+import { orderPrice } from "../../../util/orderPrice";
 
 export interface OrderSummaryProps {}
 
 export const OrderSummary: React.FC<OrderSummaryProps> = () => {
   const { currentOrder } = useContext(OrdersContext);
-  const itemsPrice = currentOrder.drinks.reduce(
-    (sum, current) => sum + current.quantity * current.drink.price,
-    0
-  );
-  const deliveryTax = itemsPrice * 0.2;
+
+  const { deliveryTax, itemsPrice, totalPrice } = orderPrice(currentOrder);
 
   return (
     <StyledSummary>
@@ -29,18 +27,18 @@ export const OrderSummary: React.FC<OrderSummaryProps> = () => {
       </div>
       <div className="subtotals">
         <p>Total de itens</p>
-        <p>R$ {itemsPrice.toFixed(2)}</p>
+        <p>R$ {itemsPrice}</p>
       </div>
       <div className="subtotals">
         <p>Taxa de entrega</p>
-        <p>R$ {deliveryTax.toFixed(2)}</p>
+        <p>R$ {deliveryTax}</p>
       </div>
       <div className="total">
         <p>
           <b>Total</b>
         </p>
         <p>
-          <b>R$ {(deliveryTax + itemsPrice).toFixed(2)}</b>
+          <b>R$ {totalPrice}</b>
         </p>
       </div>
       <Button color="yellow" type="submit">
