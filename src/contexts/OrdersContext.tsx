@@ -1,4 +1,4 @@
-import { createContext, useReducer, type ReactNode } from "react";
+import { createContext, useEffect, useReducer, type ReactNode } from "react";
 import type {
   OrderDrinkInstance,
   OrdersData,
@@ -36,10 +36,23 @@ export const OrdersContextProvider: React.FC<OrdersContextProviderProps> = ({
   const [ordersState, dispatch] = useReducer(
     OrdersReducer,
     createInitialState(),
-    (initialState) => initialState
+    (initialState) => {
+      const storedStateAsJSON = localStorage.getItem(
+        "@ignite-coffee-delivery:ordersState-1.0.0"
+      );
+      return storedStateAsJSON ? JSON.parse(storedStateAsJSON) : initialState;
+    }
   );
 
   const { currentOrder, orders } = ordersState;
+
+  useEffect(() => {
+    const stateJson = JSON.stringify(ordersState);
+    localStorage.setItem(
+      "@ignite-coffee-delivery:ordersState-1.0.0",
+      stateJson
+    );
+  }, [ordersState]);
 
   function addItemToOrder(itemToAdd: OrderDrinkInstance) {
     dispatch(addDrinkToCartAction(itemToAdd));

@@ -1101,3 +1101,26 @@ navigate(`/confirmation/${currentOrder.id}`);
 ```tsx
 const { orderId } = useParams();
 ```
+
+### Implement Local Storage
+
+To implement this feature, we need to refactor a bit our Context.
+
+The third argument of the `useReducer` hook is the _initializer function_ and with that we can set our initial state as the first action on opening the app.
+
+We need to create a basic function that access our local storage to get the information from there.
+
+```tsx
+const [ordersState, dispatch] = useReducer(
+  OrdersReducer,
+  createInitialState(),
+  (initialState) => {
+    const storedStateAsJSON = localStorage.getItem(
+      "@ignite-coffee-delivery:ordersState-1.0.0"
+    );
+    return storedStateAsJSON ? JSON.parse(storedStateAsJSON) : initialState;
+  }
+);
+```
+
+To save the state on the local storage, we need to use the `useEffect` hook from React to store to the local storage every time that the `orderState` is changed:

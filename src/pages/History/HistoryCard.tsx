@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import type { OrderType } from "../../@types/types";
 import { itemPrice, orderPrice } from "../../util/orderPrice";
+import { formatDate } from "../../util/formatDate";
 
 export interface HistoryCardProps {
   order: OrderType;
@@ -8,6 +9,8 @@ export interface HistoryCardProps {
 
 export const HistoryCard: React.FC<HistoryCardProps> = ({ order }) => {
   const { deliveryTax, itemsPrice, totalPrice } = orderPrice(order);
+
+  console.log();
   return (
     <StyledHistoryCard>
       <div>
@@ -24,7 +27,8 @@ export const HistoryCard: React.FC<HistoryCardProps> = ({ order }) => {
         </ul>
       </div>
       <div className="infoContainer">
-        <h3>{new Intl.DateTimeFormat("pt-BR").format(order.date)}</h3>
+        <h3>{formatDate(order.date)}</h3>
+
         <p>
           <b>Pedido:</b> {order.id}
         </p>
