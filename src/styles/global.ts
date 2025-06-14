@@ -28,6 +28,9 @@ export const GlobalStyle = createGlobalStyle`
    button {
      cursor: pointer;
      transition: 200ms;
+     &:disabled {
+       cursor: not-allowed;
+     }
    }
 
    input {

@@ -18,7 +18,11 @@ export const CartButton: React.FC<CartButtonProps> = () => {
       <NumberContainer quantity={+quantityOnCart}>
         {quantityOnCart}
       </NumberContainer>
-      <IconButton onClick={() => navigate("/checkout")} color="yellow">
+      <IconButton
+        onClick={() => navigate("/checkout")}
+        color="yellow"
+        disabled={!currentOrder.drinks.length}
+      >
         <ShoppingCartIcon weight="fill" />
       </IconButton>
     </CartButtonContainer>

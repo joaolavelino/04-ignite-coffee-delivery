@@ -15,7 +15,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
   ...props
 }) => {
   return (
-    <StyledIconButton onClick={onClick} {...props}>
+    <StyledIconButton onClick={onClick} {...props} disabled={props.disabled}>
       {children}
     </StyledIconButton>
   );
