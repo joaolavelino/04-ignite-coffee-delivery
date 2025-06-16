@@ -40,6 +40,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
               addOne={addOne}
               removeOne={removeOne}
               quantity={quantity}
+              itemName={drink.name}
             />
 
             <IconButton onClick={deleteOne} color="yellow">

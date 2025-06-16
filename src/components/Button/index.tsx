@@ -7,8 +7,16 @@ export interface ButtonProps
   color: "purple" | "yellow";
 }
 
-export const Button: React.FC<ButtonProps> = ({ color, children }) => {
-  return <StyledButton color={color}>{children}</StyledButton>;
+export const Button: React.FC<ButtonProps> = ({
+  color,
+  children,
+  ...props
+}) => {
+  return (
+    <StyledButton color={color} {...props}>
+      {children}
+    </StyledButton>
+  );
 };
 
 interface ButtonStyleProps {

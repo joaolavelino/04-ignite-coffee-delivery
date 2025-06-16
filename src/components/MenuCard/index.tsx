@@ -44,6 +44,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ drink }) => {
             addOne={addOne}
             removeOne={removeOne}
             quantity={quantity}
+            itemName={drink.name}
           />
           <IconButton
             color="purple"

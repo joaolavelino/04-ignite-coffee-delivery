@@ -5,20 +5,31 @@ export interface QuantitySelectorProps {
   quantity: number;
   addOne: () => void;
   removeOne: () => void;
+  itemName?: string;
 }
 
 export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   quantity,
   addOne,
   removeOne,
+  itemName = "",
 }) => {
   return (
     <StyledSelector>
-      <button onClick={removeOne} type="button" disabled={quantity == 1}>
+      <button
+        onClick={removeOne}
+        type="button"
+        disabled={quantity == 1}
+        aria-label={`remova um ${itemName}`}
+      >
         <MinusIcon />
       </button>
       <p>{quantity}</p>
-      <button onClick={addOne} type="button">
+      <button
+        onClick={addOne}
+        type="button"
+        aria-label={`adicione um ${itemName}`}
+      >
         <PlusIcon />
       </button>
     </StyledSelector>

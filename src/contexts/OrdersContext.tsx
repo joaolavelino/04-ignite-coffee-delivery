@@ -14,6 +14,7 @@ import {
 } from "../reducers/orders/actions";
 import { OrdersReducer } from "../reducers/orders/reducer";
 import { createInitialState } from "../util/functions";
+import { useNavigate } from "react-router-dom";
 
 interface OrdersContextData extends OrdersData {
   addItemToOrder: (itemToAdd: OrderDrinkInstance) => void;
@@ -44,6 +45,8 @@ export const OrdersContextProvider: React.FC<OrdersContextProviderProps> = ({
     }
   );
 
+  const navigate = useNavigate();
+
   const { currentOrder, orders } = ordersState;
 
   useEffect(() => {
@@ -53,6 +56,13 @@ export const OrdersContextProvider: React.FC<OrdersContextProviderProps> = ({
       stateJson
     );
   }, [ordersState]);
+
+  const backToMenu = () => {
+    window.alert("Seu pedido está vazio. Você será redirecionado para o menu");
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
+  };
 
   function addItemToOrder(itemToAdd: OrderDrinkInstance) {
     dispatch(addDrinkToCartAction(itemToAdd));
@@ -79,6 +89,7 @@ export const OrdersContextProvider: React.FC<OrdersContextProviderProps> = ({
   }
   function removeItemFromOrder(drinkId: string) {
     dispatch(removeItemFromOrderAction(drinkId));
+    if (currentOrder.drinks.length == 0) backToMenu();
   }
 
   return (

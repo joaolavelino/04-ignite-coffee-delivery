@@ -2,8 +2,8 @@ import { useContext } from "react";
 import styled, { css } from "styled-components";
 import { Button } from "../../../components/Button";
 import { OrdersContext } from "../../../contexts/OrdersContext";
-import { SummaryCard } from "./SummaryCard";
 import { orderPrice } from "../../../util/orderPrice";
+import { SummaryCard } from "./SummaryCard";
 
 export interface OrderSummaryProps {}
 
@@ -41,7 +41,11 @@ export const OrderSummary: React.FC<OrderSummaryProps> = () => {
           <b>R$ {totalPrice}</b>
         </p>
       </div>
-      <Button color="yellow" type="submit">
+      <Button
+        color="yellow"
+        type="submit"
+        disabled={!currentOrder.drinks.length}
+      >
         Confirmar Pedido
       </Button>
     </StyledSummary>
